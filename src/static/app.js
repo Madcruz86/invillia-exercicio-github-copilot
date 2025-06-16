@@ -29,14 +29,21 @@ document.addEventListener("DOMContentLoaded", () => {
             <strong>Participants:</strong>
             ${
               details.participants.length > 0
-                ? `<ul style="margin-top: 5px; margin-bottom: 0;">
+                ? `<div class="participants-list">
                     ${details.participants
                       .map(
-                        (participant) =>
-                          `<li style="font-size: 0.95em;">${participant}</li>`
+                        (participant) => {
+                          const initials = participant
+                            .split("@")[0]
+                            .split(/[.\-_]/)
+                            .map(part => part[0]?.toUpperCase() || "")
+                            .join("")
+                            .slice(0, 2);
+                          return `<span class="participant-avatar" title="${participant}">${initials}</span>`;
+                        }
                       )
                       .join("")}
-                  </ul>`
+                  </div>`
                 : '<span style="font-size: 0.95em;">No participants yet.</span>'
             }
           </div>
