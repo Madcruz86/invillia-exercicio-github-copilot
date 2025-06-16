@@ -25,6 +25,28 @@ document.addEventListener("DOMContentLoaded", () => {
           <p>${details.description}</p>
           <p><strong>Schedule:</strong> ${details.schedule}</p>
           <p><strong>Availability:</strong> ${spotsLeft} spots left</p>
+          <div>
+            <strong>Participants:</strong>
+            ${
+              details.participants.length > 0
+                ? `<div class="participants-list">
+                    ${details.participants
+                      .map(
+                        (participant) => {
+                          const initials = participant
+                            .split("@")[0]
+                            .split(/[.\-_]/)
+                            .map(part => part[0]?.toUpperCase() || "")
+                            .join("")
+                            .slice(0, 2);
+                          return `<span class="participant-avatar" title="${participant}">${initials}</span>`;
+                        }
+                      )
+                      .join("")}
+                  </div>`
+                : '<span style="font-size: 0.95em;">No participants yet.</span>'
+            }
+          </div>
         `;
 
         activitiesList.appendChild(activityCard);
